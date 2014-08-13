@@ -1,0 +1,128 @@
+doctype html
+html(lang="en")
+  include ../shared-head
+  body.index
+    // Fixed navbar
+    .navbar.navbar-inverse.navbar-fixed-top
+      .container
+        .navbar-header
+          button.navbar-toggle(type="button", data-toggle="collapse", data-target=".navbar-collapse")
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href="#")
+            | POST<span>NIX</span>
+        .navbar-collapse.collapse
+          ul.nav.navbar-nav.navbar-right
+            li
+              a(href="/") HOME
+            li.active
+              a(href="/signup") SIGN UP
+            li
+              a(href="/contact")
+                i.fa.fa-envelope-o
+                |  CONTACT
+
+    #headerwrap
+      .overlay
+      .container
+        .row.centered
+          .col-lg-10.col-lg-offset-1
+            h1
+              | Stop accepting junk emails on your signup forms
+            h2 Get Email Deliverability Verification
+
+    // Email form
+    #emailcheck
+      .container
+        .row.centered
+          .col-lg-12.col-md-12
+            block content
+
+    // Features
+    .container.w
+      .row.centered
+        br
+        br
+        .col-lg-4.col-md-4.col-lg-offset-1.col-md-offset-1
+          i.fa.fa-ban
+          h4 FILTER THE JUNK
+          p
+            | Undeliverable emails like <em>foo@bar.com</em> are lurking in
+            | your database, hurting your deliverability score and increasing
+            | your bounce rate.
+        .col-lg-4.col-md-4.col-lg-offset-1.col-md-offset-1
+          i.fa.fa-bolt
+          h4 INSTANT VERIFICATION
+          p
+            | Use our real-time email verification API in your signup process
+            | and get instant feedback on the true deliverability of your
+            | user's email addresses.
+      .row.centered
+        .col-lg-4.col-md-4.col-lg-offset-1.col-md-offset-1
+          i.fa.fa-search
+          h4 PROVIDER LOOKUP
+          p
+            | We lookup DNS records to reveal who the email provider is. This
+            | means we can detect the use of Gmail and others &mdash; even for
+            | custom domains.
+        .col-lg-4.col-md-4.col-lg-offset-1.col-md-offset-1
+          i.fa.fa-cloud-upload
+          h4 BATCH PROCESS
+          p
+            | Use our batch process email verification tool in your account
+            | dashboard to perform email verification checks on all your
+            | existing emails at once.
+      br
+      br
+
+    // PRICING SECTION
+    .dg
+      .container
+        .row.centered
+          h4 SIMPLE NO-NONSENSE PRICING
+          p.lead Just <mark>one cent</mark> per email verification. Only pay for what you use.
+          br
+          .col-lg-4.col-md-4.col-lg-offset-2.col-md-offset-2
+            .pricing-option
+              .pricing-top
+                span.pricing-edition 1-100k
+                  small /mo
+                span.price
+                  sup $
+                  span.price-amount 0.01
+                span.clearfix
+                  | per email verification
+              a.pricing-signup(href="/signup") Sign up
+          .col-lg-4.col-md-4
+            .pricing-option
+              .pricing-top
+                span.pricing-edition &gt; 100k
+                  small /mo +
+                span.price
+                  span.price-amount CALL
+                span.clearfix
+                  | let's talk volume
+              a.pricing-signup(href="/contact") Contact Us
+        .row.centered
+          .col-lg-8.col-md-8.col-lg-offset-2.col-md-offset-2
+            p.clearfix
+              | If you anticipate an email verification volume of 100,000 checks
+              | or more per month, please <a href="/contact">contact us</a> for
+              | volume pricing and to ensure we can accomodate your needs.
+
+    #r
+      .container
+        .row.centered
+          .col-lg-8.col-md-8.col-lg-offset-2.col-md-offset-2
+            h4 KISS BAD EMAIL ADDRESSES GOODBYE. FOREVER.
+            p
+              | Scrub your entire existing database with our batch tools, and
+              | ensure no more bad emails get in your database ever again by
+              | integrating our lightning-fast instant email verification API
+              | in your signup form.
+            p
+              a.btn.btn-primary.btn-lg(href="/signup") Sign Up Now
+
+    include ../shared-foot
+

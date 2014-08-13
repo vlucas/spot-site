@@ -1,0 +1,11 @@
+{
+  "name": "hexo-site",
+  "version": "2.7.1",
+  "private": true,
+  "dependencies": {
+    "hexo-renderer-ejs": "*",
+    "hexo-renderer-stylus": "~0.1.0",
+    "hexo-renderer-marked": "*",
+    "hexo-renderer-jade": "~0.1.0"
+  }
+}
