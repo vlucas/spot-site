@@ -8,16 +8,25 @@ html(lang='en')
     nav#topnav.navbar.navbar-default(role='navigation')
       .container
         a.navbar-brand(href=config.root)
+          i.fa.fa-database
+          | 
           = config.title
         ul.nav.navbar-nav.navbar-right.pad-right
           li
             a(href=config.root) Home
           li
+            a(href='/docs') Documentation
+          li
             a(href='/articles') Articles
 
-    .container
-      section#page_content
-        block content
+    if page.custom_layout
+      block content
+    else
+      .container
+        section#page_content
+          block content
 
-      footer#page_foot
-        include _partial/footer
+    unless page.hide_footer
+      .container
+        footer#page_foot
+          include _partial/footer

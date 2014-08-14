@@ -6,7 +6,10 @@ prepend window_title
    &mdash;
 
 append content
-  article
-    h2= page.title
-
+  if page.custom_layout
     != page.content
+  else
+    article
+      h2= page.title
+
+      != page.content

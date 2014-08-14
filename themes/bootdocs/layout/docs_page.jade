@@ -1,0 +1,19 @@
+extends docs_base
+
+prepend window_title
+
+  = page.title
+   &mdash;
+
+append content
+  if page.custom_layout
+    != page.content
+  else
+    article
+      .pull-right
+        a(href="https://github.com/vlucas/spot-site/tree/master/source/#{page.path.replace(/\.html$/, '.md')}" title="Improve this Documentation")
+          i.fa.fa-pencil
+          |  edit
+      h1= page.title
+
+      != page.content

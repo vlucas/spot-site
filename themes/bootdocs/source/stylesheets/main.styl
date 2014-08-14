@@ -2,6 +2,8 @@
  * Site Styles
  */
 @import 'bootstrap.css'
+@import 'syntax-highlighting'
+
 /* custom font */
 @import url('http://fonts.googleapis.com/css?family=Droid+Sans|Cabin:400,700|Chivo');
 
@@ -16,7 +18,7 @@ html, body
 body
   padding: 0
 h1, h2, h3, h4, h5, h6
-  color: #000
+  color: #555
 h1, h2
   font-family: 'Cabin', Helvetica, Arial, sans-serif
   font-weight: bold
@@ -39,14 +41,14 @@ a
   margin-bottom: 50px
 #topnav
   padding: 20px 0
-  margin-bottom: 40px
+  margin: 0
   font-size: 1.2em
   border-bottom: 2px solid #6b98b2
 
   a
-    color: $link-color
+    text-transform: uppercase
     &:hover
-      color: $link-color-hover
+      color: $link-color
 
   .container
     margin-bottom: 0
@@ -56,20 +58,72 @@ a
     font-family: 'Cabin', Helvetica, Arial, sans-serif
     font-size: 1.6em
     font-weight: bold
-    color: #222
+    color: #555
+    text-transform: none
+
+.hero
+  background: #a9c6d6 url('../images/patterns/bright_squares.png')
+  border-bottom: 3px solid lighten(#6b98b2, 30%)
+  min-height: 300px
+  margin-bottom: 40px
+
+  .container
+    padding-top: 90px
+
+  h1, h2, h3, h4, h5, h6
+    margin: 0
+    border: 0
+
+.sidenav
+  margin: 40px 0
+
+  .nav-title
+    margin: 10px 0
+    font-size: 1.2em
+    font-weight: bold
+
+  li
+    a
+      color: #777
+      padding: 4px 15px
+      border-left: 2px solid #999
+      &:hover, &.active
+        color: $link-color-hover
+      &.active
+        font-weight: bold
+        border-color: $link-color-hover
 
 /* Main content area */
 #page_content
   background-color: #fff
   padding: 20px
+  margin-top: 40px
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15)
   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15)
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15)
+
+  h1
+    margin: 0 0 30px 0
+
+  h2, h3
+    margin: 30px 0 20px 0
 
 /* page footer */
 #page_foot
   padding: 20px 10px
 
-@import 'syntax-highlighting'
 
+.callout
+  border: 1px solid #ddd
+  border-left-width: 4px
+  border-radius: 4px
+  padding: 20px
+  font-weight: 400
+
+  &.info
+    background-color: #e6f1f7
+    border-left-color: #82bedd
+  &.danger
+    background-color: #ffefef
+    border-left-color: #f75959
 

@@ -1,0 +1,45 @@
+doctype html
+block vars
+  - var bodyclass = null;
+html(lang='en')
+  head
+    include _partial/head
+  body(class=bodyclass)
+    nav#topnav.navbar.navbar-default(role='navigation')
+      .container
+        a.navbar-brand(href=config.root)
+          i.fa.fa-database
+          | 
+          = config.title
+        ul.nav.navbar-nav.navbar-right.pad-right
+          li
+            a(href=config.root) Home
+          li
+            a(href='/docs') Documentation
+          li
+            a(href='/articles') Articles
+
+    .container
+      .row
+        .col-md-2.col-lg-2
+          .sidenav
+            ul.nav
+              - for(submenu in config.theme_settings.sidemenu) {
+              li
+                .nav-title= submenu.replace('_', ' ').replace(/(^([a-zA-Z\p{M}]))|([ -][a-zA-Z\p{M}])/g, function(s){ return s.toUpperCase(); })
+                ul.nav.submenu
+                  - config.theme_settings.sidemenu[submenu].forEach(function(m){
+                  li
+                    a(href="#{url_for(m.url)}" title="#{m.title}" class="link#{is_current(m.url) ? ' active' : ''}")
+                     = m.title
+                  - })
+              - }
+
+        .col-md-10.col-lg-10
+          section#page_content
+            block content
+
+    unless page.hide_footer
+      .container
+        footer#page_foot
+          include _partial/footer

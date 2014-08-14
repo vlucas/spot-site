@@ -3,7 +3,7 @@
 ## Source: https://github.com/tommy351/hexo/
 
 # Site
-title: Spot PHP DataMapper
+title: Spot
 subtitle: The PHP DataMapper
 description:
 author: Vance Lucas
@@ -38,8 +38,8 @@ post_asset_folder: false
 relative_link: false
 highlight:
   enable: true
-  line_number: true
-  tab_replace:
+  line_number: false
+  tab_replace: true
 
 # Category & Tag
 default_category: uncategorized
@@ -78,15 +78,46 @@ pagination_dir: page
 # Disqus
 disqus_shortname:
 
+# Markdown Options
+marked:
+  gfm: true
+  pedantic: false
+  sanitize: false
+  tables: true
+  breaks: false
+  smartLists: true
+  smartypants: true
+
 # Extensions
 ## Plugins: https://github.com/tommy351/hexo/wiki/Plugins
 ## Themes: https://github.com/tommy351/hexo/wiki/Themes
 theme: bootdocs
 exclude_generator:
 
-google_analytics_code: 'UA-359731-14'
+# Theme Settings
+theme_settings:
+  google_analytics_code: 'UA-359731-14'
+  sidemenu:
+    setup:
+      - title: Installation
+        url: docs/installation
+      - title: Database Setup
+        url: docs/database-setup
+    basics:
+      - title: Mappers
+        url: docs/mappers
+      - title: Entities
+        url: docs/entities
+      - title: Field Types
+        url: docs/types
+      - title: Migrations
+        url: docs/migrations
+      - title: Queries
+        url: docs/queries
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
-  type:
+  type: github
+  repo: https://github.com/vlucas/spot-site.git
+  branch: gh-pages
