@@ -3,7 +3,7 @@ extends docs_base
 prepend window_title
 
   = page.title
-   &mdash;
+   | &mdash;
 
 append content
   if page.custom_layout
@@ -11,7 +11,7 @@ append content
   else
     article
       .pull-right
-        a(href="https://github.com/vlucas/spot-site/tree/master/source/#{page.path.replace(/\.html$/, '.md')}" title="Improve this Documentation")
+        a(href="https://github.com/vlucas/spot-site/blob/master/source/#{page.path.replace(/\.html$/, '.md')}" title="Improve this Documentation")
           i.fa.fa-pencil
           |  edit
       h1= page.title

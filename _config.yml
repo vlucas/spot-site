@@ -114,6 +114,8 @@ theme_settings:
         url: docs/migrations
       - title: Queries
         url: docs/queries
+      - title: Relations
+        url: docs/relations
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
