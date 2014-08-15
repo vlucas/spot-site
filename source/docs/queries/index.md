@@ -6,7 +6,7 @@ date: 2014-08-14 09:34:30
 Finders (Mapper)
 ----------------
 
-All these finders require a <a href="/docs/mapper">Mapper</a> instance. Mappers
+All these finders require a <a href="/docs/mappers/">Mapper</a> instance. Mappers
 are responsible for finding and updating individual entities.
 
 The main finders used most are `all` to return a collection of entities,
@@ -14,15 +14,23 @@ and `first` or `get` to return a single entity matching the conditions.
 
 ### all()
 
-Find all entities and return a `Spot\Entity\Collection` of loaded `Spot\Entity`
+Find all entities and return a `Spot\Entity\Collection` of loaded `Entity\Post`
 objects.
+
+```php
+// Get ALL posts
+$mapper = $spot->mapper('Entity\Post');
+$posts = $mapper->all();
+```
 
 ### where([conditions])
 
 Find all entities that match the given conditions and return a
-`Spot\Entity\Collection` of loaded `Spot\Entity` objects.
+`Spot\Entity\Collection` of loaded `Entity\Post` objects.
 
 ```php
+$mapper = $spot->mapper('Entity\Post');
+
 // Where can be called directly from the mapper
 $posts = $mapper->where(['status' => 1]);
 
@@ -38,25 +46,7 @@ can be chained in any way or order you want. The query will be
 lazy-executed on interation or `count`, or manually by ending the chain with a
 call to `execute()`.
 
-### first([conditions])
-
-Find and return a single `Spot\Entity` object that matches the criteria.
-
-```php
-$post = $mapper->first(['title' => "Test Post"]);
-```
-
-Or `first` can be used on a previous query with `all` to fetch only the first
-matching record.
-
-```php
-$post = $mapper->all(['title' => "Test Post"])->first();
-```
-
-A call to `first` will always execute the query immediately, and return either
-a single loaded entity object, or boolean `false`.
-
-### Conditional Queries
+#### Conditional Variations
 
 ```php
 # All posts with a 'published' status, descending by date_created
@@ -72,6 +62,24 @@ $posts = $mapper->all()
 $posts = $mapper->all()
     ->where(['id' => [1, 2, 5, 12, 15]]);
 ```
+
+### first([conditions])
+
+Find and return a single `Spot\Entity` object that matches the criteria.
+
+```php
+$post = $mapper->first(['title' => "Test Post"]);
+```
+
+Or `first` can be used on a previous query with `where` to fetch only the first
+matching record.
+
+```php
+$post = $mapper->where(['title' => "Test Post"])->first();
+```
+
+A call to `first` will always execute the query immediately, and return either
+a single loaded entity object, or boolean `false`.
 
 ### Joins
 

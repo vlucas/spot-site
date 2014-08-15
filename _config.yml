@@ -116,6 +116,8 @@ theme_settings:
         url: docs/queries
       - title: Relations
         url: docs/relations
+      - title: Events
+        url: docs/events
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
