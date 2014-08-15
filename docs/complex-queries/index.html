@@ -1,0 +1,107 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="author" content="Vance Lucas"><meta name="description"><title>Complex Queries&mdash;Spot ORM</title><link href="/favicon.png" rel="icon"><link rel="alternate" href="/atom.xml" title="config.title" type="application/atom.xml"><link rel="stylesheet" href="/stylesheets/main.css"><link rel="stylesheet" href="/stylesheets/font-awesome.min.css"></head><body><nav id="topnav" role="navigation" class="navbar navbar-default"><div class="container"><a href="/" class="navbar-brand"><i class="fa fa-database"></i> Spot ORM</a><ul class="nav navbar-nav navbar-right pad-right"><li><a href="/">Home</a></li><li><a href="/docs">Documentation</a></li><li><a href="/articles">Articles</a></li></ul></div></nav><div class="container"><div class="row"><div class="col-md-2 col-lg-2"><div class="sidenav"><ul class="nav"><li><div class="nav-title">Setup</div><ul class="nav submenu"><li><a href="/docs/installation" title="Installation" class="link">Installation</a></li><li><a href="/docs/database-setup" title="Database Setup" class="link">Database Setup</a></li></ul></li><li><div class="nav-title">Basics</div><ul class="nav submenu"><li><a href="/docs/mappers" title="Mappers" class="link">Mappers</a></li><li><a href="/docs/entities" title="Entities" class="link">Entities</a></li><li><a href="/docs/types" title="Field Types" class="link">Field Types</a></li><li><a href="/docs/migrations" title="Migrations" class="link">Migrations</a></li><li><a href="/docs/queries" title="Queries" class="link">Queries</a></li><li><a href="/docs/relations" title="Relations" class="link">Relations</a></li><li><a href="/docs/events" title="Events" class="link">Events</a></li></ul></li><li><div class="nav-title">Advanced</div><ul class="nav submenu"><li><a href="/docs/scopes" title="Scopes" class="link">Scopes</a></li><li><a href="/docs/complex-queries" title="Complex Queries" class="link active">Complex Queries</a></li></ul></li></ul></div></div><div class="col-md-10 col-lg-10"><section id="page_content"><article><div class="pull-right"><a href="https://github.com/vlucas/spot-site/blob/master/source/docs/complex-queries/index.md" title="Improve this Documentation"><i class="fa fa-pencil"></i> edit</a></div><h1>Complex Queries</h1><p>There are a number of conditional operations in Spot that can be used to build
+more complex queries without obtuse query builder syntax or long namespaced
+constants.</p>
+<h2 id="A_Query_Example">A Query Example</h2>
+<figure class="highlight php"><pre><span class="comment"># All posts with a 'published' or 'draft' status, descending by date_created, limit 10</span>
+<span class="variable">$posts</span> = <span class="variable">$mapper</span>-&gt;where([<span class="string">'status'</span> =&gt; <span class="string">'published'</span>])
+    -&gt;orWhere([<span class="string">'status'</span> =&gt; <span class="string">'draft'</span>])
+    -&gt;order([<span class="string">'date_created'</span> =&gt; <span class="string">'DESC'</span>])
+    -&gt;group([<span class="string">'id'</span>])
+    -&gt;having([<span class="string">'id &gt; 20'</span>])
+    -&gt;limit(<span class="number">10</span>, <span class="number">20</span>);
+</pre></figure>
+<figure class="highlight sql"><pre><span class="operator"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> posts
+<span class="keyword">WHERE</span> status = <span class="string">'published'</span> <span class="keyword">OR</span> <span class="keyword">WHERE</span> status = <span class="string">'draft'</span>
+<span class="keyword">GROUP</span> <span class="keyword">BY</span> id
+<span class="keyword">ORDER</span> <span class="keyword">BY</span> date_created <span class="keyword">DESC</span>
+<span class="keyword">HAVING</span> id &gt; <span class="number">20</span>
+LIMIT <span class="number">10</span> OFFSET <span class="number">20</span></span>
+</pre></figure>
+
+<h2 id="Accepted_Query_Values">Accepted Query Values</h2>
+<p>Spot can use many different types of values in the query builder, and will
+automatically do the right thing with them.</p>
+<h3 id="Scalar_Values">Scalar Values</h3>
+<p>Scalar values like normal strings, integers, and floats will be handled normally:</p>
+<figure class="highlight php"><pre><span class="variable">$posts</span> = <span class="variable">$mapper</span>-&gt;all()-&gt;where([<span class="string">'status &gt;='</span> =&gt; <span class="number">3</span>]);
+</pre></figure>
+<figure class="highlight sql"><pre><span class="operator"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> posts <span class="keyword">WHERE</span> status &gt;= <span class="number">3</span></span>
+</pre></figure>
+
+<h3 id="DateTime_Objects">DateTime Objects</h3>
+<p>PHP’s <code>DateTime</code> objects can be used as query values, and will be automatically
+converted to the native database driver’s required format.</p>
+<figure class="highlight php"><pre><span class="comment"># All posts created before 3 days ago</span>
+<span class="variable">$posts</span> = <span class="variable">$mapper</span>-&gt;where([<span class="string">'date_created &lt;'</span> =&gt; <span class="keyword">new</span> DateTime(<span class="string">'-3 days'</span>)]);
+</pre></figure>
+<figure class="highlight sql"><pre><span class="operator"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> posts <span class="keyword">WHERE</span> date_created &lt; <span class="string">'2014-08-12'</span></span>
+</pre></figure>
+
+<h3 id="Arrays">Arrays</h3>
+<p>Array values passed to Spot’s query builder will result in automatic “IN” clause.</p>
+<figure class="highlight php"><pre><span class="comment">// Posts with 'id' of 1, 2, 5, 12, or 15</span>
+<span class="variable">$posts</span> = <span class="variable">$mapper</span>-&gt;all()-&gt;where([<span class="string">'id'</span> =&gt; [<span class="number">1</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">12</span>, <span class="number">15</span>]]);
+</pre></figure>
+<figure class="highlight sql"><pre><span class="operator"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> posts <span class="keyword">WHERE</span> id <span class="keyword">IN</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">12</span>, <span class="number">15</span>)</span>
+</pre></figure>
+
+<h3 id="Null">Null</h3>
+<p>If a value is <code>null</code>, Spot will use the proper SQL syntax:</p>
+<figure class="highlight php"><pre><span class="variable">$posts</span> = <span class="variable">$mapper</span>-&gt;all()-&gt;where([<span class="string">'status !='</span> =&gt; <span class="keyword">null</span>]);
+</pre></figure>
+<figure class="highlight sql"><pre><span class="operator"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> posts <span class="keyword">WHERE</span> status <span class="keyword">IS</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span></span>
+</pre></figure>
+
+<h3 id="Booleans">Booleans</h3>
+<p>If a value is boolean <code>true</code> or <code>false</code>, Spot will use the proper SQL syntax
+according to the database adapter you are using:</p>
+<figure class="highlight php"><pre><span class="variable">$posts</span> = <span class="variable">$mapper</span>-&gt;all()-&gt;where([<span class="string">'is_active'</span> =&gt; <span class="keyword">true</span>]);
+</pre></figure>
+<figure class="highlight sql"><pre><span class="comment">-- PostgreSQL</span>
+<span class="operator"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> posts <span class="keyword">WHERE</span> is_active = <span class="string">'t'</span>;</span>
+
+<span class="comment">-- MySQL</span>
+<span class="operator"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> posts <span class="keyword">WHERE</span> is_active = <span class="number">1</span>;</span>
+</pre></figure>
+
+<h2 id="Custom_Queries">Custom Queries</h2>
+<p><strong>There is no substitute for the power and expressiveness of SQL</strong>. While ORMs
+like Spot are very nice to use, if you need to do complex queries, it’s best to
+just use custom queries with the SQL you know and love. This is why Spot’s
+query builder is fairly simple compared to other ORMs, and doesn’t support
+things like subqueries, etc.</p>
+<p>Spot provides a <code>query</code> method that allows you to run custom SQL, and load the
+results into a normal collection of entity objects. This way, you can easily run
+custom SQL queries with all the same ease of use and convenience as the
+built-in finder methods and you won’t have to do any special handling.</p>
+<h4 id="Using_Custom_SQL">Using Custom SQL</h4>
+<figure class="highlight php"><pre><span class="variable">$posts</span> = <span class="variable">$mapper</span>-&gt;query(<span class="string">"SELECT * FROM posts WHERE id = 1"</span>);
+</pre></figure>
+
+<h4 id="Using_Query_Parameters">Using Query Parameters</h4>
+<figure class="highlight php"><pre><span class="variable">$posts</span> = <span class="variable">$mapper</span>-&gt;query(<span class="string">"SELECT * FROM posts WHERE id = ?"</span>, [<span class="number">1</span>]);
+</pre></figure>
+
+<h4 id="Using_Named_Placeholders">Using Named Placeholders</h4>
+<figure class="highlight php"><pre><span class="variable">$posts</span> = <span class="variable">$mapper</span>-&gt;query(<span class="string">"SELECT * FROM posts WHERE id = :id"</span>, [<span class="string">'id'</span> =&gt; <span class="number">1</span>]);
+</pre></figure>
+
+<div class="callout info">
+  Spot will load ALL returned columns on the target entity from the query
+  you run. So if you perform a JOIN or get more data than the target entity
+  normally has, it will just be loaded on the target entity, and no attempt will
+  be made to map the data to other entities or to filter it based on only the
+  defined fields.
+</div>
+
+<h3 id="Joins">Joins</h3>
+<p>Joins are currently not enabled by Spot’s query builder. The Doctine DBAL query
+builder does provide full support for them, so they may be enabled in the
+future.</p>
+</article></section></div></div></div><div class="container"><footer id="page_foot"><div class="row"><div class="col-md-8 col-lg-8"><p class="text-muted">Using Spot in an awesome project? <a href="http://twitter.com/vlucas">Let me know</a>!</p><p class="text-muted">Open source under the <a href="http://www.opensource.org/licenses/bsd-license.php">BSD license</a>.</p></p></div><div class="col-md-4 col-lg-4"><p class="text-muted text-right">Website built with&nbsp;<a href="http://hexo.io/">hexo</a></p></div><script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-359731-14', 'phpdatamapper.com');
+ga('send', 'pageview');</script></div></footer></div></body></html>
