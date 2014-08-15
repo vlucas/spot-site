@@ -118,6 +118,11 @@ theme_settings:
         url: docs/relations
       - title: Events
         url: docs/events
+    advanced:
+      - title: Scopes
+        url: docs/scopes
+      - title: Complex Queries
+        url: docs/complex-queries
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html

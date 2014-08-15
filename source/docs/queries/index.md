@@ -41,10 +41,12 @@ $posts = $mapper->all()->where(['status' => 1]);
 $posts = $mapper->select()->where(['status' => 1]);
 ```
 
-Since a `Spot\Query` object is returned, conditions and other statements
-can be chained in any way or order you want. The query will be
-lazy-executed on interation or `count`, or manually by ending the chain with a
-call to `execute()`.
+<div class="callout info">
+  A `Spot\Query` object is returned with all queries, which means additional
+  conditions and other statements can be chained in any way or order you want.
+  The query will be lazy-executed on interation or `count`, or manually by ending
+  the chain with a call to `execute()`.
+</div>
 
 #### Conditional Variations
 
@@ -80,46 +82,4 @@ $post = $mapper->where(['title' => "Test Post"])->first();
 
 A call to `first` will always execute the query immediately, and return either
 a single loaded entity object, or boolean `false`.
-
-### Joins
-
-Joins are currently not enabled by Spot's query builder. The Doctine DBAL query
-builder does provide full support for them, so they may be enabled in the
-future.
-
-### Custom Queries
-
-While ORMs like Spot are very nice to use, if you need to do complex queries,
-it's best to just use custom queries with the SQL you know and love.
-
-Spot provides a `query` method that allows you to run custom SQL, and load the
-results into a normal collection of entity objects. This way, you can easily run
-custom SQL queries with all the same ease of use and convenience as the
-built-in finder methods and you won't have to do any special handling.
-
-#### Using Custom SQL
-
-```php
-$posts = $mapper->query("SELECT * FROM posts WHERE id = 1");
-```
-
-#### Using Query Parameters
-
-```php
-$posts = $mapper->query("SELECT * FROM posts WHERE id = ?", [1]);
-```
-
-#### Using Named Placeholders
-
-```php
-$posts = $mapper->query("SELECT * FROM posts WHERE id = :id", ['id' => 1]);
-```
-
-<div class="callout info">
-  Spot will load ALL returned columns on the target entity from the query
-  you run. So if you perform a JOIN or get more data than the target entity
-  normally has, it will just be loaded on the target entity, and no attempt will
-  be made to map the data to other entities or to filter it based on only the
-  defined fields.
-</div>
 
