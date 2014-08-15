@@ -1,15 +1,22 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="author" content="Vance Lucas"><meta name="description"><title>Queries With Spot&mdash;Spot ORM</title><link href="/favicon.png" rel="icon"><link rel="alternate" href="/atom.xml" title="config.title" type="application/atom.xml"><link rel="stylesheet" href="/stylesheets/main.css"><link rel="stylesheet" href="/stylesheets/font-awesome.min.css"></head><body><nav id="topnav" role="navigation" class="navbar navbar-default"><div class="container"><a href="/" class="navbar-brand"><i class="fa fa-database"></i> Spot ORM</a><ul class="nav navbar-nav navbar-right pad-right"><li><a href="/">Home</a></li><li><a href="/docs">Documentation</a></li><li><a href="/articles">Articles</a></li></ul></div></nav><div class="container"><div class="row"><div class="col-md-2 col-lg-2"><div class="sidenav"><ul class="nav"><li><div class="nav-title">Setup</div><ul class="nav submenu"><li><a href="/docs/installation" title="Installation" class="link">Installation</a></li><li><a href="/docs/database-setup" title="Database Setup" class="link">Database Setup</a></li></ul></li><li><div class="nav-title">Basics</div><ul class="nav submenu"><li><a href="/docs/mappers" title="Mappers" class="link">Mappers</a></li><li><a href="/docs/entities" title="Entities" class="link">Entities</a></li><li><a href="/docs/types" title="Field Types" class="link">Field Types</a></li><li><a href="/docs/migrations" title="Migrations" class="link">Migrations</a></li><li><a href="/docs/queries" title="Queries" class="link active">Queries</a></li><li><a href="/docs/relations" title="Relations" class="link">Relations</a></li></ul></li></ul></div></div><div class="col-md-10 col-lg-10"><section id="page_content"><article><div class="pull-right"><a href="https://github.com/vlucas/spot-site/blob/master/source/docs/queries/index.md" title="Improve this Documentation"><i class="fa fa-pencil"></i> edit</a></div><h1>Queries With Spot</h1><h2 id="Finders_(Mapper)">Finders (Mapper)</h2>
-<p>All these finders require a <a href="/docs/mapper">Mapper</a> instance. Mappers
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="author" content="Vance Lucas"><meta name="description"><title>Queries With Spot&mdash;Spot ORM</title><link href="/favicon.png" rel="icon"><link rel="alternate" href="/atom.xml" title="config.title" type="application/atom.xml"><link rel="stylesheet" href="/stylesheets/main.css"><link rel="stylesheet" href="/stylesheets/font-awesome.min.css"></head><body><nav id="topnav" role="navigation" class="navbar navbar-default"><div class="container"><a href="/" class="navbar-brand"><i class="fa fa-database"></i> Spot ORM</a><ul class="nav navbar-nav navbar-right pad-right"><li><a href="/">Home</a></li><li><a href="/docs">Documentation</a></li><li><a href="/articles">Articles</a></li></ul></div></nav><div class="container"><div class="row"><div class="col-md-2 col-lg-2"><div class="sidenav"><ul class="nav"><li><div class="nav-title">Setup</div><ul class="nav submenu"><li><a href="/docs/installation" title="Installation" class="link">Installation</a></li><li><a href="/docs/database-setup" title="Database Setup" class="link">Database Setup</a></li></ul></li><li><div class="nav-title">Basics</div><ul class="nav submenu"><li><a href="/docs/mappers" title="Mappers" class="link">Mappers</a></li><li><a href="/docs/entities" title="Entities" class="link">Entities</a></li><li><a href="/docs/types" title="Field Types" class="link">Field Types</a></li><li><a href="/docs/migrations" title="Migrations" class="link">Migrations</a></li><li><a href="/docs/queries" title="Queries" class="link active">Queries</a></li><li><a href="/docs/relations" title="Relations" class="link">Relations</a></li><li><a href="/docs/events" title="Events" class="link">Events</a></li></ul></li></ul></div></div><div class="col-md-10 col-lg-10"><section id="page_content"><article><div class="pull-right"><a href="https://github.com/vlucas/spot-site/blob/master/source/docs/queries/index.md" title="Improve this Documentation"><i class="fa fa-pencil"></i> edit</a></div><h1>Queries With Spot</h1><h2 id="Finders_(Mapper)">Finders (Mapper)</h2>
+<p>All these finders require a <a href="/docs/mappers/">Mapper</a> instance. Mappers
 are responsible for finding and updating individual entities.</p>
 <p>The main finders used most are <code>all</code> to return a collection of entities,
 and <code>first</code> or <code>get</code> to return a single entity matching the conditions.</p>
 <h3 id="all()">all()</h3>
-<p>Find all entities and return a <code>Spot\Entity\Collection</code> of loaded <code>Spot\Entity</code>
+<p>Find all entities and return a <code>Spot\Entity\Collection</code> of loaded <code>Entity\Post</code>
 objects.</p>
+<figure class="highlight php"><pre><span class="comment">// Get ALL posts</span>
+<span class="variable">$mapper</span> = <span class="variable">$spot</span>-&gt;mapper(<span class="string">'Entity\Post'</span>);
+<span class="variable">$posts</span> = <span class="variable">$mapper</span>-&gt;all();
+</pre></figure>
+
 <h3 id="where([conditions])">where([conditions])</h3>
 <p>Find all entities that match the given conditions and return a
-<code>Spot\Entity\Collection</code> of loaded <code>Spot\Entity</code> objects.</p>
-<figure class="highlight php"><pre><span class="comment">// Where can be called directly from the mapper</span>
+<code>Spot\Entity\Collection</code> of loaded <code>Entity\Post</code> objects.</p>
+<figure class="highlight php"><pre><span class="variable">$mapper</span> = <span class="variable">$spot</span>-&gt;mapper(<span class="string">'Entity\Post'</span>);
+
+<span class="comment">// Where can be called directly from the mapper</span>
 <span class="variable">$posts</span> = <span class="variable">$mapper</span>-&gt;where([<span class="string">'status'</span> =&gt; <span class="number">1</span>]);
 
 <span class="comment">// Or chained using the returned `Spot\Query` object - results identical to above</span>
@@ -23,19 +30,7 @@ objects.</p>
 can be chained in any way or order you want. The query will be
 lazy-executed on interation or <code>count</code>, or manually by ending the chain with a
 call to <code>execute()</code>.</p>
-<h3 id="first([conditions])">first([conditions])</h3>
-<p>Find and return a single <code>Spot\Entity</code> object that matches the criteria.</p>
-<figure class="highlight php"><pre><span class="variable">$post</span> = <span class="variable">$mapper</span>-&gt;first([<span class="string">'title'</span> =&gt; <span class="string">"Test Post"</span>]);
-</pre></figure>
-
-<p>Or <code>first</code> can be used on a previous query with <code>all</code> to fetch only the first
-matching record.</p>
-<figure class="highlight php"><pre><span class="variable">$post</span> = <span class="variable">$mapper</span>-&gt;all([<span class="string">'title'</span> =&gt; <span class="string">"Test Post"</span>])-&gt;first();
-</pre></figure>
-
-<p>A call to <code>first</code> will always execute the query immediately, and return either
-a single loaded entity object, or boolean <code>false</code>.</p>
-<h3 id="Conditional_Queries">Conditional Queries</h3>
+<h4 id="Conditional_Variations">Conditional Variations</h4>
 <figure class="highlight php"><pre><span class="comment"># All posts with a 'published' status, descending by date_created</span>
 <span class="variable">$posts</span> = <span class="variable">$mapper</span>-&gt;all()
     -&gt;where([<span class="string">'status'</span> =&gt; <span class="string">'published'</span>])
@@ -50,6 +45,18 @@ a single loaded entity object, or boolean <code>false</code>.</p>
     -&gt;where([<span class="string">'id'</span> =&gt; [<span class="number">1</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">12</span>, <span class="number">15</span>]]);
 </pre></figure>
 
+<h3 id="first([conditions])">first([conditions])</h3>
+<p>Find and return a single <code>Spot\Entity</code> object that matches the criteria.</p>
+<figure class="highlight php"><pre><span class="variable">$post</span> = <span class="variable">$mapper</span>-&gt;first([<span class="string">'title'</span> =&gt; <span class="string">"Test Post"</span>]);
+</pre></figure>
+
+<p>Or <code>first</code> can be used on a previous query with <code>where</code> to fetch only the first
+matching record.</p>
+<figure class="highlight php"><pre><span class="variable">$post</span> = <span class="variable">$mapper</span>-&gt;where([<span class="string">'title'</span> =&gt; <span class="string">"Test Post"</span>])-&gt;first();
+</pre></figure>
+
+<p>A call to <code>first</code> will always execute the query immediately, and return either
+a single loaded entity object, or boolean <code>false</code>.</p>
 <h3 id="Joins">Joins</h3>
 <p>Joins are currently not enabled by Spot’s query builder. The Doctine DBAL query
 builder does provide full support for them, so they may be enabled in the
