@@ -10,10 +10,15 @@ append content
     != page.content
   else
     article
-      .pull-right
-        a(href="https://github.com/vlucas/spot-site/blob/master/source/#{page.path.replace(/\.html$/, '.md')}" title="Improve this Documentation")
-          i.fa.fa-pencil
-          |  edit
-      h1= page.title
+
+      .toc-wrap
+        != toc(page.content)
+
+      h1
+        = page.title
+        .docs-edit
+          a(href="https://github.com/vlucas/spot-site/blob/master/source/#{page.path.replace(/\.html$/, '.md')}" title="Improve this Documentation")
+            i.fa.fa-pencil
+            |  edit
 
       != page.content

@@ -7,6 +7,10 @@ Spot comes with a method for running migrations on Entities that will
 automatically CREATE and ALTER tables based on the current Entity's `fields`
 definition.
 
+## Running Migrations
+To run migrations for an entity, you just need the corresponding mapper for
+that entity:
+
 ```php
 $mapper = $spot->mapper('Entity\Post');
 $mapper->migrate();

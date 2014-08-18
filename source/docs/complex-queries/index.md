@@ -104,19 +104,19 @@ results into a normal collection of entity objects. This way, you can easily run
 custom SQL queries with all the same ease of use and convenience as the
 built-in finder methods and you won't have to do any special handling.
 
-#### Using Custom SQL
+### Using Custom SQL
 
 ```php
 $posts = $mapper->query("SELECT * FROM posts WHERE id = 1");
 ```
 
-#### Using Query Parameters
+### Using Query Parameters
 
 ```php
 $posts = $mapper->query("SELECT * FROM posts WHERE id = ?", [1]);
 ```
 
-#### Using Named Placeholders
+### Using Named Placeholders
 
 ```php
 $posts = $mapper->query("SELECT * FROM posts WHERE id = :id", ['id' => 1]);

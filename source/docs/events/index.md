@@ -9,7 +9,7 @@ entity via the `events` static method. This allows spot to load your custom
 events when your entity's mapper is first loaded.
 
 
-### Example Entity
+## Example Entity
 ```php
 <?php
 namespace Entity;

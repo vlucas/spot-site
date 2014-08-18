@@ -13,7 +13,7 @@ The Spot source code is available [on GitHub](https://github.com/vlucas/spot2),
 and can be cloned into your project via git, or [downloaded directly as a ZIP
 archive](https://github.com/vlucas/spot2/archive/master.zip).
 
-### Installing Composer
+## Installing Composer
 
 If you don't have composer installed, you can do so with the command:
 
@@ -21,7 +21,7 @@ If you don't have composer installed, you can do so with the command:
 curl -s http://getcomposer.org/installer | php
 ```
 
-### Manual Installation
+## Manual Installation
 
 If you would rather install Spot manually, just open up your `composer.json`
 file, and add `vlucas/spot2` to the `require` section:
@@ -34,7 +34,7 @@ file, and add `vlucas/spot2` to the `require` section:
 }
 ```
 
-### Autoloading
+## Autoloading
 
 If you are already using Composer to manage your other dependencies, you have
 nothing more to do - Spot uses Composer's autoloader, so all of Spot's classes

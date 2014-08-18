@@ -83,3 +83,15 @@ $post = $mapper->where(['title' => "Test Post"])->first();
 A call to `first` will always execute the query immediately, and return either
 a single loaded entity object, or boolean `false`.
 
+### select()
+
+To get an instance of the query builder (`Spot\Query`) with no conditions set
+on it, use `select`.
+
+```php
+// Get instance of the query builder directly
+$query = $mapper->select();
+```
+
+This is effectively the same thing as `all()`, but without any semantics attached.
+

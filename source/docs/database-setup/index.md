@@ -13,6 +13,8 @@ Create a new instance of `Spot\Config` and add database connections with
 DSN strings so Spot can establish a database connection, then create your
 locator object:
 
+## Creating a Config Object
+
 ```php
 $cfg = new \Spot\Config();
 
