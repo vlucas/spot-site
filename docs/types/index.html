@@ -1,55 +1,57 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="author" content="Vance Lucas"><meta name="description"><title>Field Types&mdash;Spot ORM</title><link href="/favicon.png" rel="icon"><link rel="alternate" href="/atom.xml" title="config.title" type="application/atom.xml"><link rel="stylesheet" href="/stylesheets/main.css"><link rel="stylesheet" href="/stylesheets/font-awesome.min.css"></head><body><nav id="topnav" role="navigation" class="navbar navbar-default"><div class="container"><a href="/" class="navbar-brand"><i class="fa fa-database"></i> Spot ORM</a><ul class="nav navbar-nav navbar-right pad-right"><li><a href="/">Home</a></li><li><a href="/docs">Documentation</a></li><li><a href="/articles">Articles</a></li></ul></div></nav><div class="container"><div class="row"><div class="col-md-2 col-lg-2"><div class="sidenav"><ul class="nav"><li><div class="nav-title">Setup</div><ul class="nav submenu"><li><a href="/docs/installation" title="Installation" class="link">Installation</a></li><li><a href="/docs/database-setup" title="Database Setup" class="link">Database Setup</a></li></ul></li><li><div class="nav-title">Basics</div><ul class="nav submenu"><li><a href="/docs/mappers" title="Mappers" class="link">Mappers</a></li><li><a href="/docs/entities" title="Entities" class="link">Entities</a></li><li><a href="/docs/types" title="Field Types" class="link active">Field Types</a></li><li><a href="/docs/migrations" title="Migrations" class="link">Migrations</a></li><li><a href="/docs/queries" title="Queries" class="link">Queries</a></li><li><a href="/docs/relations" title="Relations" class="link">Relations</a></li><li><a href="/docs/events" title="Events" class="link">Events</a></li></ul></li><li><div class="nav-title">Advanced</div><ul class="nav submenu"><li><a href="/docs/scopes" title="Scopes" class="link">Scopes</a></li><li><a href="/docs/complex-queries" title="Complex Queries" class="link">Complex Queries</a></li></ul></li></ul></div></div><div class="col-md-10 col-lg-10"><section id="page_content"><article><div class="pull-right"><a href="https://github.com/vlucas/spot-site/blob/master/source/docs/types/index.md" title="Improve this Documentation"><i class="fa fa-pencil"></i> edit</a></div><h1>Field Types</h1><p>Since Spot v2.x is built on top of DBAL, all the <a href="http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/types.html" target="_blank" rel="external">DBAL
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="author" content="Vance Lucas"><meta name="description"><title>Field Types&mdash;Spot ORM</title><link href="/favicon.png" rel="icon"><link rel="alternate" href="/atom.xml" title="config.title" type="application/atom.xml"><link rel="stylesheet" href="/stylesheets/main.css"><link rel="stylesheet" href="/stylesheets/font-awesome.min.css"></head><body><nav id="topnav" role="navigation" class="navbar navbar-default"><div class="container"><a href="/" class="navbar-brand"><i class="fa fa-database"></i> Spot ORM</a><ul class="nav navbar-nav navbar-right pad-right"><li><a href="/">Home</a></li><li><a href="/docs">Documentation</a></li><li><a href="/articles">Articles</a></li></ul></div></nav><div class="container"><div class="row"><div class="col-md-2 col-lg-2"><div class="sidenav"><ul class="nav"><li><div class="nav-title">Setup</div><ul class="nav submenu"><li><a href="/docs/installation" title="Installation" class="link">Installation</a></li><li><a href="/docs/database-setup" title="Database Setup" class="link">Database Setup</a></li></ul></li><li><div class="nav-title">Basics</div><ul class="nav submenu"><li><a href="/docs/mappers" title="Mappers" class="link">Mappers</a></li><li><a href="/docs/entities" title="Entities" class="link">Entities</a></li><li><a href="/docs/types" title="Field Types" class="link active">Field Types</a></li><li><a href="/docs/migrations" title="Migrations" class="link">Migrations</a></li><li><a href="/docs/queries" title="Queries" class="link">Queries</a></li><li><a href="/docs/relations" title="Relations" class="link">Relations</a></li><li><a href="/docs/events" title="Events" class="link">Events</a></li></ul></li><li><div class="nav-title">Advanced</div><ul class="nav submenu"><li><a href="/docs/scopes" title="Scopes" class="link">Scopes</a></li><li><a href="/docs/complex-queries" title="Complex Queries" class="link">Complex Queries</a></li></ul></li></ul></div></div><div class="col-md-10 col-lg-10"><section id="page_content"><article><div class="toc-wrap"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Built-In_Field_Types"><span class="toc-number">1.</span> <span class="toc-text">Built-In Field Types</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Integer_Types"><span class="toc-number">1.1.</span> <span class="toc-text">Integer Types</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Decimal_Types"><span class="toc-number">1.2.</span> <span class="toc-text">Decimal Types</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#String_Types"><span class="toc-number">1.3.</span> <span class="toc-text">String Types</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Binary_String_Types"><span class="toc-number">1.4.</span> <span class="toc-text">Binary String Types</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Boolean/Bit_Types"><span class="toc-number">1.5.</span> <span class="toc-text">Boolean/Bit Types</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Date_and_Time_Types"><span class="toc-number">1.6.</span> <span class="toc-text">Date and Time Types</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Array_Types"><span class="toc-number">1.7.</span> <span class="toc-text">Array Types</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Object_Types"><span class="toc-number">1.8.</span> <span class="toc-text">Object Types</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#Further_Reading"><span class="toc-number">2.</span> <span class="toc-text">Further Reading</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Registering_Custom_Field_Types"><span class="toc-number">3.</span> <span class="toc-text">Registering Custom Field Types</span></a></li></ol></div><h1>Field Types<div class="docs-edit"><a href="https://github.com/vlucas/spot-site/blob/master/source/docs/types/index.md" title="Improve this Documentation"><i class="fa fa-pencil"></i> edit</a></div></h1><p>Since Spot v2.x is built on top of DBAL, all the <a href="http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/types.html" target="_blank" rel="external">DBAL
 types</a>
 are used and fully supported in Spot:</p>
-<p>Integer Types</p>
+<h2 id="Built-In_Field_Types">Built-In Field Types</h2>
+<h3 id="Integer_Types">Integer Types</h3>
 <ul>
 <li><code>smallint</code></li>
 <li><code>integer</code></li>
 <li><code>bigint</code></li>
 </ul>
-<p>Decimal Types</p>
+<h3 id="Decimal_Types">Decimal Types</h3>
 <ul>
 <li><code>decimal</code></li>
 <li><code>float</code></li>
 </ul>
-<p>String Types</p>
+<h3 id="String_Types">String Types</h3>
 <ul>
 <li><code>string</code></li>
 <li><code>text</code></li>
 <li><code>guid</code></li>
 </ul>
-<p>Binary String Types</p>
+<h3 id="Binary_String_Types">Binary String Types</h3>
 <ul>
 <li><code>binary</code></li>
 <li><code>blob</code></li>
 </ul>
-<p>Boolean/Bit Types</p>
+<h3 id="Boolean/Bit_Types">Boolean/Bit Types</h3>
 <ul>
 <li><code>boolean</code></li>
 </ul>
-<p>Date and Time Types</p>
+<h3 id="Date_and_Time_Types">Date and Time Types</h3>
 <ul>
 <li><code>date</code></li>
 <li><code>datetime</code></li>
 <li><code>datetimez</code></li>
 <li><code>time</code></li>
 </ul>
-<p>Array Types</p>
+<h3 id="Array_Types">Array Types</h3>
 <ul>
 <li><code>array</code> - PHP serialize/deserialze</li>
 <li><code>simple_array</code> - PHP implode/explode</li>
 <li><code>json_array</code> - json_encode/json_decode</li>
 </ul>
-<p>Object Types</p>
+<h3 id="Object_Types">Object Types</h3>
 <ul>
 <li><code>object</code> - PHP serialize/deserialze</li>
 </ul>
+<h2 id="Further_Reading">Further Reading</h2>
 <p>Please read the <a href="http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/types.html" target="_blank" rel="external">Doctrine DBAL Types Reference
 Page</a>
 thoroughly for more information and types and cross-database support. Some
 types may be stored differently on different databases, depending on database
 vendor support and other factors.</p>
-<h4 id="Registering_Custom_Field_Types">Registering Custom Field Types</h4>
+<h2 id="Registering_Custom_Field_Types">Registering Custom Field Types</h2>
 <p>If you want to register your own custom field type with custom
 functionality on get/set, have a look at the <a href="http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/types.html#custom-mapping-types" target="_blank" rel="external">Custom Mapping Types on the DBAL
 reference page</a>.</p>
