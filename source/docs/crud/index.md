@@ -116,3 +116,15 @@ if ($result) {
 }
 ```
 
+## update($entity)
+
+The `update` method will update an existing entity.
+
+```php
+// Find and update an entity
+$entity = $mapper->first(['email' => 'chester@example.com']);
+if ($entity) {
+    $entity->name = 'Lester Tester';
+    $mapper->update($entity);
+}
+```
