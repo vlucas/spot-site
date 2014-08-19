@@ -96,6 +96,7 @@ exclude_generator:
 
 # Theme Settings
 theme_settings:
+  github_url: 'https://github.com/vlucas/spot2'
   google_analytics_code: 'UA-359731-14'
   sidemenu:
     setup:
