@@ -113,6 +113,8 @@ theme_settings:
         url: docs/types
       - title: Migrations
         url: docs/migrations
+      - title: Basic CRUD
+        url: docs/crud
       - title: Queries
         url: docs/queries
       - title: Relations

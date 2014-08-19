@@ -12,6 +12,20 @@ are responsible for finding and updating individual entities.
 The main finders used most are `all` to return a collection of entities,
 and `first` or `get` to return a single entity matching the conditions.
 
+### get([$primaryKey])
+
+The `get` method accepts a primary key to load a record with:
+
+```php
+// Get Post with 'id' = 58
+$mapper = $spot->mapper('Entity\Post');
+$post = $mapper->get(58);
+```
+
+If there is no `Entity\Post` with the primary key provided, boolean `false`
+will be returned.
+
+
 ### all()
 
 Find all entities and return a `Spot\Entity\Collection` of loaded `Entity\Post`
