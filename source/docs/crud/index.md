@@ -128,3 +128,12 @@ if ($entity) {
     $mapper->update($entity);
 }
 ```
+
+## Saving Relations
+
+**Currently, Spot does not automatically save any related entities on save**. For
+instance, if you have a `Book` entity that hasOne `Author`, and you make edits
+to the author object, you must save the author object itself directly with the
+author's mapper. Saving the book object will not automatically detect and save
+changes on any related objects, even if the related objects are already loaded.
+

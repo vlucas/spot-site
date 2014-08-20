@@ -3,7 +3,14 @@ extends base
 prepend window_title
 
   = page.title
-   &mdash;
+   |  &mdash; 
+
+if page.meta_keywords
+  append meta
+    meta(name='keywords', content=page.meta_keywords)
+if page.meta_description
+  append meta
+    meta(name='description', content=page.meta_description)
 
 append content
   if page.custom_layout
