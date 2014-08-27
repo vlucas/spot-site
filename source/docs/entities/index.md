@@ -34,6 +34,16 @@ class Post extends \Spot\Entity
 }
 ```
 
+<div class="callout info">
+  <h4>Field Options</h4>
+  
+  <p>All of the <strong><a
+  href="http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/schema-representation.html#column">DBAL
+  schema column options</a></strong> can be used for field attributes, and will be passed to DBAL when
+  creating the table structure through <a
+  href="/docs/migrations/">migrations</a>. Spot adds some additional field attributes like `required` and `value` as well.</p>
+</div>
+
 ### Primary Keys
 
 In the above "Post" entity, the primary key is defined on the `id` field
