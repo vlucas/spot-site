@@ -25,6 +25,14 @@ compliant autoloading.</p>
 }
 </pre></figure>
 
+<div class="callout info">
+  <h4>Field Options</h4>
+
+  <p>All of the <strong><a href="http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/schema-representation.html#column" target="_blank" rel="external">DBAL
+  schema column options</a></strong> can be used for field attributes, and will be passed to DBAL when
+  creating the table structure through <a href="/docs/migrations/">migrations</a>. Spot adds some additional field attributes like <code>required</code> and <code>value</code> as well.</p>
+</div>
+
 <h3 id="Primary_Keys">Primary Keys</h3>
 <p>In the above “Post” entity, the primary key is defined on the <code>id</code> field
 with a <code>&#39;primary&#39; =&gt; true</code> attribute on the field definition. If the primary
