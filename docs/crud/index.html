@@ -1,30 +1,19 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="author" content="Vance Lucas"><meta name="keywords"><meta name="description"><title>Basic CRUD Operations &ndash; Spot ORM</title><link href="/favicon.png" rel="icon"><link rel="alternate" href="/atom.xml" title="config.title" type="application/atom.xml"><link rel="stylesheet" href="/stylesheets/main.css"><link rel="stylesheet" href="/stylesheets/font-awesome.min.css"></head><body><nav id="topnav" role="navigation" class="navbar navbar-default"><div class="container"><a href="/" class="navbar-brand"><i class="fa fa-database"></i> Spot ORM</a><ul class="nav navbar-nav navbar-right pad-right"><li><a href="/">Home</a></li><li><a href="/docs">Documentation</a></li><li><a href="/articles">Articles</a></li></ul></div></nav><div class="container"><div class="row"><div class="col-md-2 col-lg-2"><div class="sidenav"><ul class="nav"><li><div class="nav-title">Setup</div><ul class="nav submenu"><li><a href="/docs/installation" title="Installation" class="link">Installation</a></li><li><a href="/docs/database-setup" title="Database Setup" class="link">Database Setup</a></li></ul></li><li><div class="nav-title">Basics</div><ul class="nav submenu"><li><a href="/docs/mappers" title="Mappers" class="link">Mappers</a></li><li><a href="/docs/entities" title="Entities" class="link">Entities</a></li><li><a href="/docs/types" title="Field Types" class="link">Field Types</a></li><li><a href="/docs/migrations" title="Migrations" class="link">Migrations</a></li><li><a href="/docs/crud" title="Basic CRUD" class="link active">Basic CRUD</a></li><li><a href="/docs/queries" title="Queries" class="link">Queries</a></li><li><a href="/docs/relations" title="Relations" class="link">Relations</a></li><li><a href="/docs/events" title="Events" class="link">Events</a></li></ul></li><li><div class="nav-title">Advanced</div><ul class="nav submenu"><li><a href="/docs/scopes" title="Scopes" class="link">Scopes</a></li><li><a href="/docs/complex-queries" title="Complex Queries" class="link">Complex Queries</a></li></ul></li></ul></div></div><div class="col-md-10 col-lg-10"><section id="page_content"><article><div class="toc-wrap"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#build([array_$data])"><span class="toc-number">1.</span> <span class="toc-text">build([array $data])</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#create([array_$data])"><span class="toc-number">2.</span> <span class="toc-text">create([array $data])</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#insert([$data])"><span class="toc-number">3.</span> <span class="toc-text">insert([$data])</span></a></li><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Data_Array"><span class="toc-number">3.1.</span> <span class="toc-text">Data Array</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Entity_Object"><span class="toc-number">3.2.</span> <span class="toc-text">Entity Object</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#save($entity)"><span class="toc-number">4.</span> <span class="toc-text">save($entity)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#update($entity)"><span class="toc-number">5.</span> <span class="toc-text">update($entity)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Saving_Relations"><span class="toc-number">6.</span> <span class="toc-text">Saving Relations</span></a></li></ol></div><h1>Basic CRUD Operations<div class="docs-edit"><a href="https://github.com/vlucas/spot-site/blob/master/source/docs/crud/index.md" title="Improve this Documentation"><i class="fa fa-pencil"></i> edit</a></div></h1><p>There are four main save methods on Spot’s mapper: <code>insert</code>, <code>create</code>, <code>save</code>,
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="author" content="Vance Lucas"><meta name="keywords"><meta name="description"><title>Basic CRUD Operations &ndash; Spot ORM</title><link href="/favicon.png" rel="icon"><link rel="alternate" href="/atom.xml" title="config.title" type="application/atom.xml"><link rel="stylesheet" href="/stylesheets/main.css"><link rel="stylesheet" href="/stylesheets/font-awesome.min.css"></head><body><nav id="topnav" role="navigation" class="navbar navbar-default"><div class="container"><a href="/" class="navbar-brand"><i class="fa fa-database"></i> Spot ORM</a><ul class="nav navbar-nav navbar-right pad-right"><li><a href="/">Home</a></li><li><a href="/docs">Documentation</a></li><li><a href="/articles">Articles</a></li></ul></div></nav><div class="container"><div class="row"><div class="col-md-2 col-lg-2"><div class="sidenav"><ul class="nav"><li><div class="nav-title">Setup</div><ul class="nav submenu"><li><a href="/docs/installation" title="Installation" class="link">Installation</a></li><li><a href="/docs/database-setup" title="Database Setup" class="link">Database Setup</a></li></ul></li><li><div class="nav-title">Basics</div><ul class="nav submenu"><li><a href="/docs/mappers" title="Mappers" class="link">Mappers</a></li><li><a href="/docs/entities" title="Entities" class="link">Entities</a></li><li><a href="/docs/types" title="Field Types" class="link">Field Types</a></li><li><a href="/docs/migrations" title="Migrations" class="link">Migrations</a></li><li><a href="/docs/crud" title="Basic CRUD" class="link active">Basic CRUD</a></li><li><a href="/docs/queries" title="Queries" class="link">Queries</a></li><li><a href="/docs/relations" title="Relations" class="link">Relations</a></li><li><a href="/docs/events" title="Events" class="link">Events</a></li></ul></li><li><div class="nav-title">Advanced</div><ul class="nav submenu"><li><a href="/docs/scopes" title="Scopes" class="link">Scopes</a></li><li><a href="/docs/complex-queries" title="Complex Queries" class="link">Complex Queries</a></li></ul></li></ul></div></div><div class="col-md-10 col-lg-10"><section id="page_content"><article><div class="toc-wrap"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#build([array_$data])"><span class="toc-number">1.</span> <span class="toc-text">build([array $data])</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#create([array_$data])"><span class="toc-number">2.</span> <span class="toc-text">create([array $data])</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.0.1.</span> <span class="toc-text">Expect an Entity… or Else!</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#insert([$data])"><span class="toc-number">3.</span> <span class="toc-text">insert([$data])</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Data_Array"><span class="toc-number">3.1.</span> <span class="toc-text">Data Array</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Entity_Object"><span class="toc-number">3.2.</span> <span class="toc-text">Entity Object</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#save($entity)"><span class="toc-number">4.</span> <span class="toc-text">save($entity)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#update($entity)"><span class="toc-number">5.</span> <span class="toc-text">update($entity)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Saving_Relations"><span class="toc-number">6.</span> <span class="toc-text">Saving Relations</span></a></li></ol></div><h1>Basic CRUD Operations<div class="docs-edit"><a href="https://github.com/vlucas/spot-site/blob/master/source/docs/crud/index.md" title="Improve this Documentation"><i class="fa fa-pencil"></i> edit</a></div></h1><p>There are four main save methods on Spot’s mapper: <code>insert</code>, <code>create</code>, <code>save</code>,
 and <code>update</code>. There are some basic differences between them, so this page
 will address each one.</p>
 <h2 id="build([array_$data])">build([array $data])</h2>
 <p>Build an entity object with the provided array data.</p>
-<figure class="highlight php"><pre><span class="comment">// Returns a new loaded Entity\User object</span>
-<span class="variable">$entity</span> = <span class="variable">$mapper</span>-&gt;build([
-    <span class="string">'name'</span> =&gt; <span class="string">'Chester Tester'</span>,
-    <span class="string">'email'</span> =&gt; <span class="string">'chester@example.com'</span>
-]);
-</pre></figure>
-<strong>Build will create the Entity object for you, but it will not save it</strong>. If
-you also wish to save the entity object, you must pass it to one of the save
-methods:
+<figure class="highlight php"><pre><div class="line"><span class="comment">// Returns a new loaded Entity\User object</span></div><div class="line"><span class="variable">$entity</span> = <span class="variable">$mapper</span><span class="variable">-&gt;build</span>([</div><div class="line">    <span class="string">'name'</span> =&gt; <span class="string">'Chester Tester'</span>,</div><div class="line">    <span class="string">'email'</span> =&gt; <span class="string">'chester@example.com'</span></div><div class="line">]);</div></pre></figure>
 
-<figure class="highlight php"><pre><span class="variable">$mapper</span>-&gt;save(<span class="variable">$entity</span>);
-</pre></figure>
+<p><strong>Build will create the Entity object for you, but it will not save it</strong>. If
+you also wish to save the entity object, you must pass it to one of the save
+methods:</p>
+<figure class="highlight php"><pre><div class="line"><span class="variable">$mapper</span><span class="variable">-&gt;save</span>(<span class="variable">$entity</span>);</div></pre></figure>
 
 <h2 id="create([array_$data])">create([array $data])</h2>
 <p>Create will both <strong>build</strong> and <strong>insert</strong> the entity. The result will be a
 fully-loaded entity object that has already been saved.</p>
-<figure class="highlight php"><pre><span class="comment">// Returns a successfully saved, loaded Entity\User object... or throws an exception</span>
-<span class="variable">$entity</span> = <span class="variable">$mapper</span>-&gt;create([
-    <span class="string">'name'</span> =&gt; <span class="string">'Chester Tester'</span>,
-    <span class="string">'email'</span> =&gt; <span class="string">'chester@example.com'</span>
-]);
-</pre></figure>
+<figure class="highlight php"><pre><div class="line"><span class="comment">// Returns a successfully saved, loaded Entity\User object... or throws an exception</span></div><div class="line"><span class="variable">$entity</span> = <span class="variable">$mapper</span><span class="variable">-&gt;create</span>([</div><div class="line">    <span class="string">'name'</span> =&gt; <span class="string">'Chester Tester'</span>,</div><div class="line">    <span class="string">'email'</span> =&gt; <span class="string">'chester@example.com'</span></div><div class="line">]);</div></pre></figure>
 
 <div class="callout info">
   <h4>Expect an Entity… or Else!</h4>
@@ -43,64 +32,22 @@ data (either an array of data, or a <code>Spot\Entity</code> object), and will r
 either the inserted record’s primary key, or boolean false.</p>
 <h3 id="Data_Array">Data Array</h3>
 <p>Using a data array is perhaps the easiest way to use <code>insert</code>:</p>
-<figure class="highlight php"><pre><span class="comment">// Insert and return record primary key, or boolean false</span>
-<span class="variable">$result</span> = <span class="variable">$mapper</span>-&gt;insert([
-    <span class="string">'name'</span> =&gt; <span class="string">'Chester Tester'</span>,
-    <span class="string">'email'</span> =&gt; <span class="string">'chester@example.com'</span>
-]);
-
-<span class="comment">// Fetch inserted record by ID</span>
-<span class="keyword">if</span> (<span class="variable">$result</span>) {
-    <span class="variable">$entity</span> = <span class="variable">$mapper</span>-&gt;get(<span class="variable">$result</span>);
-}
-</pre></figure>
+<figure class="highlight php"><pre><div class="line"><span class="comment">// Insert and return record primary key, or boolean false</span></div><div class="line"><span class="variable">$result</span> = <span class="variable">$mapper</span><span class="variable">-&gt;insert</span>([</div><div class="line">    <span class="string">'name'</span> =&gt; <span class="string">'Chester Tester'</span>,</div><div class="line">    <span class="string">'email'</span> =&gt; <span class="string">'chester@example.com'</span></div><div class="line">]);</div><div class="line"></div><div class="line"><span class="comment">// Fetch inserted record by ID</span></div><div class="line"><span class="keyword">if</span> (<span class="variable">$result</span>) {</div><div class="line">    <span class="variable">$entity</span> = <span class="variable">$mapper</span><span class="variable">-&gt;get</span>(<span class="variable">$result</span>);</div><div class="line">}</div></pre></figure>
 
 <h3 id="Entity_Object">Entity Object</h3>
 <p>You can also pass a <code>Spot\Entity</code> object to <code>insert</code>:</p>
-<figure class="highlight php"><pre><span class="comment">// Insert and return record primary key, or boolean false</span>
-
-<span class="variable">$entity</span> = <span class="variable">$mapper</span>-&gt;build([
-    <span class="string">'name'</span> =&gt; <span class="string">'Chester Tester'</span>,
-    <span class="string">'email'</span> =&gt; <span class="string">'chester@example.com'</span>
-]);
-<span class="variable">$result</span> = <span class="variable">$mapper</span>-&gt;insert(<span class="variable">$entity</span>);
-
-<span class="comment">// Fetch inserted record by ID</span>
-<span class="keyword">if</span> (<span class="variable">$result</span>) {
-    <span class="comment">// Do something with $entity</span>
-}
-</pre></figure>
+<figure class="highlight php"><pre><div class="line"><span class="comment">// Insert and return record primary key, or boolean false</span></div><div class="line"></div><div class="line"><span class="variable">$entity</span> = <span class="variable">$mapper</span><span class="variable">-&gt;build</span>([</div><div class="line">    <span class="string">'name'</span> =&gt; <span class="string">'Chester Tester'</span>,</div><div class="line">    <span class="string">'email'</span> =&gt; <span class="string">'chester@example.com'</span></div><div class="line">]);</div><div class="line"><span class="variable">$result</span> = <span class="variable">$mapper</span><span class="variable">-&gt;insert</span>(<span class="variable">$entity</span>);</div><div class="line"></div><div class="line"><span class="comment">// Fetch inserted record by ID</span></div><div class="line"><span class="keyword">if</span> (<span class="variable">$result</span>) {</div><div class="line">    <span class="comment">// Do something with $entity</span></div><div class="line">}</div></pre></figure>
 
 <h2 id="save($entity)">save($entity)</h2>
 <p>The <code>save</code> method is a convenience method that handles both inserting and
 updating an entity object. Save will call either <code>insert</code> or <code>update</code>,
 depending on whether the Entity has already been saved (it will check
 <code>$entity-&gt;isNew()</code> internally).</p>
-<figure class="highlight php"><pre><span class="comment">// Save and return record primary key, or boolean false</span>
-
-<span class="variable">$entity</span> = <span class="variable">$mapper</span>-&gt;build([
-    <span class="string">'name'</span> =&gt; <span class="string">'Chester Tester'</span>,
-    <span class="string">'email'</span> =&gt; <span class="string">'chester@example.com'</span>
-]);
-<span class="variable">$result</span> = <span class="variable">$mapper</span>-&gt;save(<span class="variable">$entity</span>);
-
-<span class="comment">// Fetch inserted record by ID</span>
-<span class="keyword">if</span> (<span class="variable">$result</span>) {
-    <span class="comment">// Update with another call to save</span>
-    <span class="variable">$entity</span>-&gt;name = <span class="string">'Lester Tester'</span>;
-    <span class="variable">$mapper</span>-&gt;save(<span class="variable">$entity</span>);
-}
-</pre></figure>
+<figure class="highlight php"><pre><div class="line"><span class="comment">// Save and return record primary key, or boolean false</span></div><div class="line"></div><div class="line"><span class="variable">$entity</span> = <span class="variable">$mapper</span><span class="variable">-&gt;build</span>([</div><div class="line">    <span class="string">'name'</span> =&gt; <span class="string">'Chester Tester'</span>,</div><div class="line">    <span class="string">'email'</span> =&gt; <span class="string">'chester@example.com'</span></div><div class="line">]);</div><div class="line"><span class="variable">$result</span> = <span class="variable">$mapper</span><span class="variable">-&gt;save</span>(<span class="variable">$entity</span>);</div><div class="line"></div><div class="line"><span class="comment">// Fetch inserted record by ID</span></div><div class="line"><span class="keyword">if</span> (<span class="variable">$result</span>) {</div><div class="line">    <span class="comment">// Update with another call to save</span></div><div class="line">    <span class="variable">$entity</span><span class="variable">-&gt;name</span> = <span class="string">'Lester Tester'</span>;</div><div class="line">    <span class="variable">$mapper</span><span class="variable">-&gt;save</span>(<span class="variable">$entity</span>);</div><div class="line">}</div></pre></figure>
 
 <h2 id="update($entity)">update($entity)</h2>
 <p>The <code>update</code> method will update an existing entity.</p>
-<figure class="highlight php"><pre><span class="comment">// Find and update an entity</span>
-<span class="variable">$entity</span> = <span class="variable">$mapper</span>-&gt;first([<span class="string">'email'</span> =&gt; <span class="string">'chester@example.com'</span>]);
-<span class="keyword">if</span> (<span class="variable">$entity</span>) {
-    <span class="variable">$entity</span>-&gt;name = <span class="string">'Lester Tester'</span>;
-    <span class="variable">$mapper</span>-&gt;update(<span class="variable">$entity</span>);
-}
-</pre></figure>
+<figure class="highlight php"><pre><div class="line"><span class="comment">// Find and update an entity</span></div><div class="line"><span class="variable">$entity</span> = <span class="variable">$mapper</span><span class="variable">-&gt;first</span>([<span class="string">'email'</span> =&gt; <span class="string">'chester@example.com'</span>]);</div><div class="line"><span class="keyword">if</span> (<span class="variable">$entity</span>) {</div><div class="line">    <span class="variable">$entity</span><span class="variable">-&gt;name</span> = <span class="string">'Lester Tester'</span>;</div><div class="line">    <span class="variable">$mapper</span><span class="variable">-&gt;update</span>(<span class="variable">$entity</span>);</div><div class="line">}</div></pre></figure>
 
 <h2 id="Saving_Relations">Saving Relations</h2>
 <p><strong>Currently, Spot does not automatically save any related entities on save</strong>. For

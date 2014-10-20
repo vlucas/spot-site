@@ -3,8 +3,7 @@ pattern</a>, you will need a
 mapper instance for working with object Entities and database tables. You can
 get a mapper instance from the <code>Spot\Locator</code> object’s <code>mapper</code> method by
 providing the fully qualified entity namespace + class name:</p>
-<figure class="highlight php"><pre><span class="variable">$postMapper</span> = <span class="variable">$spot</span>-&gt;mapper(<span class="string">'Entity\Post'</span>);
-</pre></figure>
+<figure class="highlight php"><pre><div class="line"><span class="variable">$postMapper</span> = <span class="variable">$spot</span><span class="variable">-&gt;mapper</span>(<span class="string">'Entity\Post'</span>);</div></pre></figure>
 
 <p>Mappers only work with one entity type, so you will need one mapper per entity
 class you work with (i.e. to save an Entity\Post, you will need the appropriate
@@ -23,43 +22,16 @@ corresponding mapper by Spot.</p>
 nice to create one if you have a lot of custom finder methods, or want a better
 place to contain the logic of building all the queries you need.</p>
 <p>Just specify the full mapper class name in your entity:</p>
-<figure class="highlight php"><pre><span class="keyword">namespace</span> <span class="title">Entity</span>;
-
-<span class="class"><span class="keyword">class</span> <span class="title">Post</span> <span class="keyword">extends</span> \<span class="title">Spot</span>\<span class="title">Entity</span>
-{</span>
-    <span class="keyword">protected</span> <span class="keyword">static</span> <span class="variable">$mapper</span> = <span class="string">'Entity\Mapper\Post'</span>;
-
-    <span class="comment">// ... snip ...</span>
-}
-</pre></figure>
+<figure class="highlight php"><pre><div class="line"><span class="keyword">namespace</span> <span class="title">Entity</span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Post</span> <span class="keyword">extends</span> \<span class="title">Spot</span>\<span class="title">Entity</span></span></div><div class="line">{</div><div class="line">    <span class="keyword">protected</span> <span class="keyword">static</span> <span class="variable">$mapper</span> = <span class="string">'Entity\Mapper\Post'</span>;</div><div class="line"></div><div class="line">    <span class="comment">// ... snip ...</span></div><div class="line">}</div></pre></figure>
 
 <p>And then create your mapper:</p>
-<figure class="highlight php"><pre><span class="keyword">namespace</span> <span class="title">Entity</span>\<span class="title">Mapper</span>;
-
-<span class="keyword">use</span> <span class="title">Spot</span>\<span class="title">Mapper</span>;
-
-<span class="class"><span class="keyword">class</span> <span class="title">Post</span> <span class="keyword">extends</span> <span class="title">Mapper</span>
-{</span>
-    <span class="comment">/**
-     * Get 10 most recent posts for display on the sidebar
-     *
-     *<span class="phpdoc"> @return</span> \Spot\Query
-     */</span>
-    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">mostRecentPostsForSidebar</span><span class="params">()</span>
-    {</span>
-        <span class="keyword">return</span> <span class="variable">$this</span>-&gt;where([<span class="string">'status'</span> =&gt; <span class="string">'active'</span>])
-            -&gt;order([<span class="string">'date_created'</span> =&gt; <span class="string">'DESC'</span>])
-            -&gt;limit(<span class="number">10</span>);
-    }
-}
-</pre></figure>
+<figure class="highlight php"><pre><div class="line"><span class="keyword">namespace</span> <span class="title">Entity</span>\<span class="title">Mapper</span>;</div><div class="line"></div><div class="line"><span class="keyword">use</span> <span class="title">Spot</span>\<span class="title">Mapper</span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Post</span> <span class="keyword">extends</span> <span class="title">Mapper</span></span></div><div class="line">{</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Get 10 most recent posts for display on the sidebar</div><div class="line">     *</div><div class="line">     *<span class="phpdoc"> @return</span> \Spot\Query</div><div class="line">     */</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">mostRecentPostsForSidebar</span><span class="params">()</span></span></div><div class="line">    {</div><div class="line">        <span class="keyword">return</span> <span class="variable">$this</span><span class="variable">-&gt;where</span>([<span class="string">'status'</span> =&gt; <span class="string">'active'</span>])</div><div class="line">            <span class="variable">-&gt;order</span>([<span class="string">'date_created'</span> =&gt; <span class="string">'DESC'</span>])</div><div class="line">            <span class="variable">-&gt;limit</span>(<span class="number">10</span>);</div><div class="line">    }</div><div class="line">}</div></pre></figure>
 
 <p>Then when you load the mapper like normal, Spot will see the custom
 <code>Entity\Post::$mapper</code> you defined, and load that instead of the generic one,
 allowing you to call your custom method:</p>
-<figure class="highlight php"><pre><span class="variable">$mapper</span> = <span class="variable">$spot</span>-&gt;mapper(<span class="string">'Entity\Post'</span>);
-<span class="variable">$sidebarPosts</span> = <span class="variable">$mapper</span>-&gt;mostRecentPostsForSidebar();
-</pre></figure>
+<figure class="highlight php"><pre><div class="line"><span class="variable">$mapper</span> = <span class="variable">$spot</span><span class="variable">-&gt;mapper</span>(<span class="string">'Entity\Post'</span>);</div><div class="line"><span class="variable">$sidebarPosts</span> = <span class="variable">$mapper</span><span class="variable">-&gt;mostRecentPostsForSidebar</span>();</div></pre></figure>
+
 </article></section></div></div></div><div class="container"><footer id="page_foot"><div class="row"><div class="col-md-8 col-lg-8"><p class="text-muted">Using Spot in an awesome project? <a href="http://twitter.com/vlucas">Let me know</a>!</p><p class="text-muted"><a href="https://github.com/vlucas/spot2"><i class="fa fa-github"></i> View Code on GitHub</a> &mdash; Open source under the <a href="http://www.opensource.org/licenses/bsd-license.php">BSD license</a>.</p></p></div><div class="col-md-4 col-lg-4"><p class="text-muted text-right">Website built with&nbsp;<a href="http://hexo.io/">hexo</a></p></div><script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)

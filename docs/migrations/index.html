@@ -4,9 +4,7 @@ definition.</p>
 <h2 id="Running_Migrations">Running Migrations</h2>
 <p>To run migrations for an entity, you just need the corresponding mapper for
 that entity:</p>
-<figure class="highlight php"><pre><span class="variable">$mapper</span> = <span class="variable">$spot</span>-&gt;mapper(<span class="string">'Entity\Post'</span>);
-<span class="variable">$mapper</span>-&gt;migrate();
-</pre></figure>
+<figure class="highlight php"><pre><div class="line"><span class="variable">$mapper</span> = <span class="variable">$spot</span><span class="variable">-&gt;mapper</span>(<span class="string">'Entity\Post'</span>);</div><div class="line"><span class="variable">$mapper</span><span class="variable">-&gt;migrate</span>();</div></pre></figure>
 
 <p>Your database should now have the <code>posts</code> table in it, with all the fields you
 described in your <code>Post</code> entity.</p>
