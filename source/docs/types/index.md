@@ -33,7 +33,7 @@ are used and fully supported in Spot:
 ### Date and Time Types
  * `date`
  * `datetime`
- * `datetimez`
+ * `datetimetz`
  * `time`
 
 ### Array Types
