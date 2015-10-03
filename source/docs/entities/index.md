@@ -109,3 +109,16 @@ A required field can be enforced on save, create, and update using a
 ```php
 'email' => ['type' => 'string', 'required' => true]
 ```
+
+### Validation
+
+It is possible to define validation rules within entity fields definition. Validation will be done just before persisting an object into database.
+
+```php
+'email' => ['type' => 'string', 'required' => true, 'validation' => ['email' => true]],
+'age' => ['type' => 'integer', 'validation' => [
+    'integer' => true, 'min' => 18
+]]
+```
+
+You can find further documentation about available validators within [Valitron](https://github.com/vlucas/valitron) project (Built-in Validation Rules).
