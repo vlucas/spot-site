@@ -3,9 +3,9 @@ layout: docs_page
 date: 2014-08-14 09:34:30
 ---
 
-The `Spot\Locator` object is the main point of access to spot that you will
+The `Spot\Locator` object is the main point of access to Spot that you will
 have to be able to access from everywhere you need to run queries or work with
-your entities. It is responsible for loading mappers and manging configuration.
+your entities. It is responsible for loading mappers and managing configuration.
 To create a Locator, you will need a `Spot\Config` object.
 
 The `Spot\Config` object stores and references database connections by name.
