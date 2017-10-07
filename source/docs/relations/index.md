@@ -199,7 +199,7 @@ class Comment extends \Spot\Entity
 {
     // ... snip ...
 
-    public static function relations()
+    public static function relations(\Spot\MapperInterface $mapper, \Spot\EntityInterface $entity)
     {
         return [
             'post' => $mapper->belongsTo($entity, 'Entity\Post', 'post_id')
@@ -248,7 +248,7 @@ class Post extends Spot\Entity
         ];
     }
 
-    public static function relations(Mapper $mapper, Entity $entity)
+    public static function relations(\Spot\MapperInterface $mapper, \Spot\EntityInterface $entity)
     {
         return [
             'tags' => $mapper->hasManyThrough($entity, 'Entity\Tag', 'Entity\PostTag', 'tag_id', 'post_id'),
