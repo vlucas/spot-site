@@ -131,6 +131,12 @@ if ($entity) {
 
 ## Saving Relations
 
+In order to save relations on the entity, you need to call the `save` method (or `update` or `insert`) with an additional `$options` parameter, an array with the `relations` key as `true`:
+
+```php
+$mapper->save($entity, ["relations" => true]);
+```
+
 **Currently, Spot does not automatically save any related entities on save**. For
 instance, if you have a `Book` entity that hasOne `Author`, and you make edits
 to the author object, you must save the author object itself directly with the
